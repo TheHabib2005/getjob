@@ -23,6 +23,8 @@ const AuthModal = ({ title, subtitle, pageType, isModal }: { title: string, subt
         picture: string,
         google_sub: string,
     }) => {
+        console.log(user);
+
         return new Promise(async (resolve, reject) => {
             let { success, userData } = await saveUserDataInDb()
             if (success) {
