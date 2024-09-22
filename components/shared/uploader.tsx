@@ -1,8 +1,6 @@
 'use client'
 
 import { useState, useCallback, useMemo, ChangeEvent } from 'react'
-import toast from 'react-hot-toast'
-
 import { PutBlobResult } from '@vercel/blob'
 
 export default function Uploader() {
@@ -56,7 +54,7 @@ export default function Uploader() {
             alert(url)
           } else {
             const error = await res.text()
-            toast.error(error)
+            alert("error")
           }
           setSaving(false)
         })
@@ -98,7 +96,7 @@ export default function Uploader() {
               const file = e.dataTransfer.files && e.dataTransfer.files[0]
               if (file) {
                 if (file.size / 1024 / 1024 > 50) {
-                  toast.error('File size too big (max 50MB)')
+                  alert('File size too big (max 50MB)')
                 } else {
                   setFile(file)
                   const reader = new FileReader()
