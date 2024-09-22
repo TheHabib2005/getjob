@@ -20,7 +20,12 @@ const page = async () => {
     <div className="grid grid-cols-5 gap-4">
       <Link href={"/sign-in"}>sing-in</Link>
       {
-        products.map((product: any) => {
+        products.map((product: {
+          id: number;
+          title: string;
+          description: string;
+          price: number
+        }) => {
           return (
             <div key={product.id}>
               <div className="flex items-center space-x-2">
