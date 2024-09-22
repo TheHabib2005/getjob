@@ -9,11 +9,8 @@
 // }
 
 import { fetchProduct } from "@/actions/fetch-product";
-import { kv } from "@vercel/kv";
-import Image from "next/image";
 import Link from "next/link";
 
-import React from 'react'
 
 const page = async () => {
   const { products } = await fetchProduct();
