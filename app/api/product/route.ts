@@ -2,7 +2,7 @@ import { kv } from "@vercel/kv";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
-  let isCached = await kv.get("products");
+  const isCached = await kv.get("products");
 
   if (isCached) {
     return NextResponse.json({

@@ -3,7 +3,7 @@
 import { kv } from "@vercel/kv";
 
 export const fetchProduct = async () => {
-  let isCached = await kv.get("products");
+  const isCached = await kv.get("products");
   if (isCached) {
     return {
       success: true,
