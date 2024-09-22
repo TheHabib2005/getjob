@@ -53,7 +53,9 @@ export default function Uploader() {
             const { url } = (await res.json()) as PutBlobResult
             alert(url)
           } else {
-            const error = await res.text()
+            // const error = await res.text()
+
+
             alert("error")
           }
           setSaving(false)
