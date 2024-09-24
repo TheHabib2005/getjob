@@ -25,37 +25,43 @@ const AuthModal = ({ title, subtitle, pageType, isModal }: { title: string, subt
     }) => {
         console.log(user);
 
-        return new Promise(async (resolve, reject) => {
-            let { success } = await saveUserDataInDb()
-            if (success) {
-                setLoading(false)
+        // return new Promise(async (resolve, reject) => {
+        //     let { success, userData } = await saveUserDataInDb(user)
+        //     if (success) {
+        //         console.log("userdata", userData);
 
-                window.location.href = "/profile"
-                resolve(true)
-            } else {
-                setLoading(false)
-                reject()
-            }
-        })
+        //         setLoading(false)
+        //         // window.location.href = "/profile"
+        //         resolve(true)
+        //     } else {
+        //         setLoading(false)
+        //         reject()
+        //     }
+        // })
+        window.location.href = `/profile?email=${user.email}`
     }
 
     const googleLogin = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
             console.log(tokenResponse);
             setLoading(true)
-            const userInfo = await axios.get(
+            const { data } = await axios.get(
                 'https://www.googleapis.com/oauth2/v3/userinfo',
                 { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } },
             );
-            if (userInfo.status === 200) {
-                toast.promise(
-                    saveData(userInfo.data),
-                    {
-                        loading: 'Saving...',
-                        success: <b>Login successfull</b>,
-                        error: <b>Could not save.</b>,
-                    }
-                );
+            console.log(data);
+
+            // setLoading(false)
+            const success = await saveUserDataInDb({
+                username: data.name,
+                email: data.email,
+                imageUrl: data.picture,
+            });
+            console.log(success);
+
+            if (success) {
+                setLoading(false)
+                window.location.href = "/profile"
             }
         },
         onError: errorResponse => console.log(errorResponse),
