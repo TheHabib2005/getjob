@@ -17,54 +17,29 @@ const AuthModal = ({ title, subtitle, pageType, isModal }: { title: string, subt
         }
     };
 
-    const saveData = async (user: {
-        username: string,
-        email: string,
-        picture: string,
-        google_sub: string,
-    }) => {
-        console.log(user);
-
-        // return new Promise(async (resolve, reject) => {
-        //     let { success, userData } = await saveUserDataInDb(user)
-        //     if (success) {
-        //         console.log("userdata", userData);
-
-        //         setLoading(false)
-        //         // window.location.href = "/profile"
-        //         resolve(true)
-        //     } else {
-        //         setLoading(false)
-        //         reject()
-        //     }
-        // })
-        window.location.href = `/profile?email=${user.email}`
-    }
-
     const googleLogin = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
-            console.log(tokenResponse);
             setLoading(true)
             const { data } = await axios.get(
                 'https://www.googleapis.com/oauth2/v3/userinfo',
                 { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } },
             );
-            console.log(data);
-
-            // setLoading(false)
             const success = await saveUserDataInDb({
                 username: data.name,
                 email: data.email,
                 imageUrl: data.picture,
             });
-            console.log(success);
-
             if (success) {
                 setLoading(false)
                 window.location.href = "/profile"
+            } else {
+                // handle error
+                toast.error("Get Some Network Inssue!")
             }
         },
-        onError: errorResponse => console.log(errorResponse),
+        onError: errorResponse => {
+            toast.error(errorResponse.error!)
+        }
     });
     return (
         <div

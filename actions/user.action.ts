@@ -19,7 +19,10 @@ export const saveUserDataInDb = async (user: any) => {
     if (loggedInUser) {
       cookiesClient.set(
         "user_token",
-        `8737nb364267dfg876348576b583456$${loggedInUser.email}`
+        `8737nb364267dfg876348576b583456$${loggedInUser.email}`,
+        {
+          maxAge: 60,
+        }
       );
       return {
         success: true,

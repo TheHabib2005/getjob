@@ -19,7 +19,6 @@ export default function RootLayout({
     <html lang="en">
       <body
       >
-
         <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID!}>
           <Toaster
             position="top-center"
