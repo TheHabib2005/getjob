@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { MapPin, Briefcase, GraduationCap, FileText, Upload, Download, Pencil, X } from 'lucide-react'
 import LogoutButton from '../auth/logoutButton'
+import AboutText from './about-text'
 
 const UserProfile = ({ user }: { user: any }) => {
     const [isEditing, setIsEditing] = useState(false)
@@ -21,7 +22,7 @@ const UserProfile = ({ user }: { user: any }) => {
         location: "San Francisco, CA",
         email: "john.doe@example.com",
         phone: "+1 (555) 123-4567",
-        about: "Passionate frontend developer with 5 years of experience in creating responsive and user-friendly web applications. Proficient in React, Next.js, and TypeScript.",
+        about: "",
         skills: ["React", "Next.js", "TypeScript", "CSS", "HTML", "JavaScript"],
         experience: [
             {
@@ -157,24 +158,7 @@ const UserProfile = ({ user }: { user: any }) => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="md:col-span-2">
-                        <Card className="mb-8">
-                            <CardHeader>
-                                <CardTitle>About Me</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                {isEditing ? (
-                                    <Textarea
-                                        name="about"
-                                        value={profile.about}
-                                        onChange={handleInputChange}
-                                        className="w-full"
-                                        rows={6}
-                                    />
-                                ) : (
-                                    <p className="text-gray-600 dark:text-gray-300">{profile.about}</p>
-                                )}
-                            </CardContent>
-                        </Card>
+                        <AboutText about_text={profile.about} />
 
                         <Card className="mb-8">
                             <CardHeader>
